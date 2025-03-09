@@ -643,21 +643,62 @@
                             </div>
                             
                             <div class="mt-8 text-center">
-                                <a 
-                                    href="https://forms.gle/exampleFormLink" 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    class="relative overflow-hidden group bg-gradient-to-r from-green-600 to-green-400 text-white font-bold py-5 px-12 rounded-lg shadow-xl inline-block transform transition-all duration-300 hover:shadow-2xl hover:scale-105"
-                                >
-                                    <span class="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
-                                    <span class="relative z-10 flex items-center justify-center text-xl group-hover:animate-pulse">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                        </svg>
-                                        今すぐ申し込む
-                                    </span>
-                                </a>
-                                <p class="mt-4 text-gray-600">※申し込み後、決済方法のご案内をお送りします</p>
+                                <div class="relative inline-block group">
+                                    <!-- 背景の光るエフェクト -->
+                                    <div class="absolute -inset-1 bg-gradient-to-r from-green-600 via-emerald-400 to-green-600 rounded-xl blur-xl opacity-40 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                                    
+                                    <a 
+                                        href="https://s.lmes.jp/landing-qr/2000603406-9ewqNgb8?uLand=3itTiD" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        class="relative inline-flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-500 via-green-400 to-emerald-400 text-white font-bold text-2xl py-8 px-24 rounded-xl shadow-[0_8px_25px_rgba(34,197,94,0.35)] transition-all duration-300 ease-out hover:shadow-[0_8px_35px_rgba(34,197,94,0.45)] transform hover:-translate-y-1 hover:scale-[1.02]"
+                                    >
+                                        <!-- 内部の光沢エフェクト -->
+                                        <span class="absolute inset-0">
+                                            <span class="absolute inset-0 bg-gradient-to-tl from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                                            
+                                            <!-- 動くグラデーション背景 -->
+                                            <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></span>
+                                            
+                                            <!-- キラキラエフェクト -->
+                                            <span class="absolute inset-0">
+                                                <span class="absolute w-32 h-full bg-gradient-to-r from-white/0 via-white/40 to-white/0 -skew-x-12 transform -translate-x-full group-hover:translate-x-[500%] transition-transform duration-1000 ease-out"></span>
+                                                <span class="absolute w-32 h-full bg-gradient-to-r from-white/0 via-white/40 to-white/0 -skew-x-12 transform -translate-x-full group-hover:translate-x-[500%] transition-transform duration-1000 delay-150 ease-out"></span>
+                                            </span>
+
+                                            <!-- 内側の光る枠線 -->
+                                            <span class="absolute inset-0 border-2 border-white/0 group-hover:border-white/20 rounded-xl scale-90 group-hover:scale-100 transition-all duration-500"></span>
+                                        </span>
+
+                                        <!-- メインコンテンツ -->
+                                        <span class="relative flex items-center">
+                                            <!-- アイコン -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-4 transform group-hover:translate-x-2 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                            </svg>
+                                            
+                                            <!-- テキスト -->
+                                            <span class="relative inline-block group-hover:tracking-wider transition-all duration-500">
+                                                今すぐ申し込む
+                                                <span class="absolute bottom-0 left-0 w-full h-0.5 bg-white/70 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>
+                                            </span>
+                                        </span>
+
+                                        <!-- アクセントの光点 -->
+                                        <span class="absolute top-0 right-0 -mt-2 -mr-2">
+                                            <span class="absolute w-4 h-4 bg-yellow-300 rounded-full blur-sm animate-ping opacity-75"></span>
+                                            <span class="relative w-3 h-3 bg-yellow-400 rounded-full"></span>
+                                        </span>
+                                        <span class="absolute bottom-0 left-0 -mb-2 -ml-2">
+                                            <span class="absolute w-4 h-4 bg-emerald-300 rounded-full blur-sm animate-ping opacity-75 delay-1000"></span>
+                                            <span class="relative w-3 h-3 bg-emerald-400 rounded-full"></span>
+                                        </span>
+                                    </a>
+
+                                    <!-- 追加のアクセント光効果 -->
+                                    <div class="absolute -inset-4 bg-gradient-to-r from-green-600 to-emerald-400 opacity-0 group-hover:opacity-10 blur-2xl transition-all duration-500 -z-10"></div>
+                                </div>
+                                <p class="mt-8 text-gray-600 animate-[fadeIn_1s_ease-in]">※申し込み後、決済方法のご案内をお送りします</p>
                             </div>
                         </div>
                     </div>
@@ -755,6 +796,44 @@
             </div>
         </div>
     </footer>
+
+    <script type="module">
+        import { courseConfig, fetchConfig, updateRemainingSeats } from './config.js';
+
+        // 残り席数を表示する要素の更新関数
+        function updateSeatsDisplay(seats) {
+            const elements = [
+                document.getElementById('remaining-seats'),
+                document.getElementById('remaining-seats-display'),
+                document.getElementById('final-remaining-seats')
+            ];
+            
+            elements.forEach(element => {
+                if (element) {
+                    element.textContent = seats;
+                }
+            });
+        }
+
+        // 初期表示と定期的な更新
+        async function initializeAndUpdate() {
+            try {
+                const config = await fetchConfig();
+                updateSeatsDisplay(config.remainingSeats);
+
+                // 1分ごとに残り席数を更新（必要に応じて間隔を調整）
+                setInterval(async () => {
+                    const updatedConfig = await fetchConfig();
+                    updateSeatsDisplay(updatedConfig.remainingSeats);
+                }, 60000);
+            } catch (error) {
+                console.error('残り席数の更新に失敗しました:', error);
+            }
+        }
+
+        // ページ読み込み時に初期化
+        document.addEventListener('DOMContentLoaded', initializeAndUpdate);
+    </script>
 
     <script>
         // ===== プリロード関数 =====
