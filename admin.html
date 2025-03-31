@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>残り席数管理 - LINE公式アカウント内製化基礎講座</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">残り席数管理</h1>
+            
+            <div class="mb-6">
+                <div class="text-gray-600 mb-2">現在の残り席数:</div>
+                <div class="text-3xl font-bold text-green-600" id="currentSeats">読み込み中...</div>
+            </div>
+            
+            <form id="updateForm" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="newCount">
+                        新しい残り席数
+                    </label>
+                    <input 
+                        type="number" 
+                        id="newCount" 
+                        min="0" 
+                        max="12" 
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                    >
+                </div>
+                
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                        管理者パスワード
+                    </label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                    >
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <button 
+                        type="submit" 
+                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors duration-200"
+                    >
+                        更新する
+                    </button>
+                    
+                    <button 
+                        type="button"
+                        id="refreshButton"
+                        class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors duration-200"
+                    >
+                        再読み込み
+                    </button>
+                </div>
+            </form>
+            
+            <div id="message" class="mt-4 p-3 rounded-lg hidden"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { fetchConfig, adminUpdateSeats } from './config.js';
+
+        const currentSeatsElement = document.getElementById('currentSeats');
+        const updateForm = document.getElementById('updateForm');
+        const messageElement = document.getElementById('message');
+        const refreshButton = document.getElementById('refreshButton');
+
+        // 残り席数の表示を更新
+        async function updateDisplay() {
+            try {
+                const config = await fetchConfig();
+                currentSeatsElement.textContent = config.remainingSeats;
+            } catch (error) {
+                showMessage('エラーが発生しました: ' + error.message, 'error');
+            }
+        }
+
+        // メッセージを表示
+        function showMessage(text, type = 'success') {
+            messageElement.textContent = text;
+            messageElement.className = `mt-4 p-3 rounded-lg ${
+                type === 'error' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
+            }`;
+            messageElement.classList.remove('hidden');
+            
+            // 3秒後にメッセージを消す
+            setTimeout(() => {
+                messageElement.classList.add('hidden');
+            }, 3000);
+        }
+
+        // フォームの送信処理
+        updateForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const newCount = parseInt(document.getElementById('newCount').value);
+            const password = document.getElementById('password').value;
+            
+            try {
+                await adminUpdateSeats(newCount, password);
+                await updateDisplay();
+                showMessage('残り席数を更新しました');
+                document.getElementById('password').value = '';
+            } catch (error) {
+                showMessage(error.message, 'error');
+            }
+        });
+
+        // 再読み込みボタンの処理
+        refreshButton.addEventListener('click', updateDisplay);
+
+        // 初期表示
+        updateDisplay();
+    </script>
+</body>
+</html> 
